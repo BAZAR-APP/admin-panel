@@ -4,6 +4,8 @@ import Input from '@/components/ui/Input'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, type ZodType } from 'zod'
+import AxiosBase from '@/services/axios/AxiosBase'
+import useSWR, { mutate } from 'swr'
 import type { User } from '@/@types/auth'
 
 type EditUserDialogProps = {
@@ -15,18 +17,18 @@ type EditUserDialogProps = {
 
 type EditUserSchema = {
     fullName: string
-    phoneNumber: string
+    email: string
 }
 
 const validationSchema: ZodType<EditUserSchema> = z.object({
-    fullName: z
-        .string({ required_error: 'Please enter your name' })
-        .trim()
-        .min(3, 'Name is too short'),
-    phoneNumber: z
-        .string({ required_error: 'Please enter your phone number' })
-        .regex(/^\+?\d{10,15}$/, { message: 'Invalid phone number' }),
+    fullName: z.string().trim().min(3, 'Name is too short'),
+    email: z.string().email('Invalid email address'),
 })
+
+const fetcher = async (url: string) => {
+    const res = await AxiosBase.get(url)
+    return res.data
+}
 
 const EditUserDialog: React.FC<EditUserDialogProps> = ({
     dialogIsOpen,
@@ -45,38 +47,40 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
         resolver: zodResolver(validationSchema),
         defaultValues: {
             fullName: '',
-            phoneNumber: '',
+            email: '',
         },
     })
 
+    const { data: userData, isLoading } = useSWR(
+        user ? `/users/${user}` : null,
+        fetcher,
+        { revalidateOnFocus: false },
+    )
+
     useEffect(() => {
-        if (user) {
+        if (userData) {
             reset({
-                fullName: user.fullName || '',
-                phoneNumber: user.phoneNumber || '',
+                fullName: userData.fullName || '',
+                email: userData.email || '',
             })
         }
-    }, [user, reset])
+    }, [userData, reset])
 
     const onSubmit = async (values: EditUserSchema) => {
         try {
             setIsSubmitting(true)
-            const response = await fetch(`/api/users/${user?.userId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: values.fullName,
-                    phoneNumber: values.phoneNumber,
-                }),
+
+            const response = await AxiosBase.patch(`/users/${user}`, {
+                name: values.fullName,
+                email: values.email,
             })
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 console.error('Failed to update user')
                 return
             }
 
+            mutate(`/users/${user}`)
             fetchUsers()
             onDialogClose()
         } catch (error) {
@@ -88,6 +92,7 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
 
     return (
         <Dialog isOpen={dialogIsOpen} onClose={onDialogClose} closable>
+            <h3 className="mb-1">Update</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
                 <FormItem
                     label="Full Name"
@@ -109,26 +114,31 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
                 </FormItem>
 
                 <FormItem
-                    label="Phone"
-                    invalid={!!errors.phoneNumber}
-                    errorMessage={errors.phoneNumber?.message}
+                    label="Email"
+                    invalid={!!errors.email}
+                    errorMessage={errors.email?.message}
                 >
                     <Controller
-                        name="phoneNumber"
+                        name="email"
                         control={control}
                         render={({ field }) => (
                             <Input
-                                type="tel"
-                                placeholder="Phone Number"
-                                autoComplete="tel"
-                                prefix="+965"
+                                type="email"
+                                placeholder="Email"
+                                autoComplete="email"
                                 {...field}
                             />
                         )}
                     />
                 </FormItem>
 
-                <Button loading={isSubmitting} variant="solid" type="submit" className='w-full'> 
+                <Button
+                    loading={isSubmitting}
+                    variant="solid"
+                    type="submit"
+                    className="w-full"
+                    disabled={isLoading}
+                >
                     {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </Button>
             </Form>
