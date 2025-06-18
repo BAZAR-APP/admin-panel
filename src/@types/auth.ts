@@ -51,9 +51,16 @@ export type AuthResult = Promise<{
 
 export type User = {
     userId?: string | null
-    fullName?: string | null
-    phoneNumber?: string | null
+    id?: string
+    fullName?: string
     email?: string | null
+    phoneNumber?: string
+    authProvider?: 'phone' | 'email' | string
+    callingCode?: string
+    countryCode?: string
+    status?: 'active' | 'inactive' | string
+    roles?: string[]
+    avatar?: string
 }
 
 export type Token = {

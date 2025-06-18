@@ -15,6 +15,7 @@ import type {
 } from '@/@types/auth'
 import type { ReactNode, Ref } from 'react'
 import type { NavigateFunction } from 'react-router-dom'
+import AxiosBase from '@/services/axios/AxiosBase'
 
 type AuthProviderProps = { children: ReactNode }
 
@@ -57,12 +58,15 @@ function AuthProvider({ children }: AuthProviderProps) {
         )
     }
 
-    const handleSignIn = (tokens: Token, user?: User) => {
+    const handleSignIn = async (tokens: Token, user?: User) => {
         setToken(tokens.accessToken)
         setSessionSignedIn(true)
 
         if (user) {
-            setUser(user)
+            const res = await AxiosBase.get('/users/currentUser')
+            console.log(res)
+
+            setUser(res?.data)
         }
     }
 
