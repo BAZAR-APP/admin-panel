@@ -7,6 +7,8 @@ import { z, type ZodType } from 'zod'
 import AxiosBase from '@/services/axios/AxiosBase'
 import useSWR, { mutate } from 'swr'
 import type { User } from '@/@types/auth'
+import { fetcher } from '@/services/fetcher'
+import toast from 'react-hot-toast'
 
 type EditUserDialogProps = {
     dialogIsOpen: boolean
@@ -24,11 +26,6 @@ const validationSchema: ZodType<EditUserSchema> = z.object({
     fullName: z.string().trim().min(3, 'Name is too short'),
     email: z.string().email('Invalid email address'),
 })
-
-const fetcher = async (url: string) => {
-    const res = await AxiosBase.get(url)
-    return res.data
-}
 
 const EditUserDialog: React.FC<EditUserDialogProps> = ({
     dialogIsOpen,
@@ -51,40 +48,34 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
         },
     })
 
-    const { data: userData, isLoading } = useSWR(
-        user ? `/users/${user}` : null,
-        fetcher,
-        { revalidateOnFocus: false },
-    )
+    const { data: userData } = useSWR(`/users/${user?.id}`, fetcher, {
+        revalidateOnFocus: false,
+    })
 
     useEffect(() => {
-        if (userData) {
+        if (user || userData) {
             reset({
-                fullName: userData.fullName || '',
-                email: userData.email || '',
+                fullName: userData?.fullName ?? user?.fullName ?? '',
+                email: userData?.email ?? user?.email ?? '',
             })
         }
-    }, [userData, reset])
+    }, [userData, user, reset])
 
     const onSubmit = async (values: EditUserSchema) => {
         try {
             setIsSubmitting(true)
-
-            const response = await AxiosBase.patch(`/users/${user}`, {
-                name: values.fullName,
-                email: values.email,
-            })
-
+            const response = await AxiosBase.patch(`/users/${user?.id}`, values)
             if (response.status !== 200) {
-                console.error('Failed to update user')
+                toast.error('Failed to update user')
                 return
             }
-
-            mutate(`/users/${user}`)
+            mutate(`/users/${user?.id}`)
             fetchUsers()
             onDialogClose()
+            toast.success('User updated successfully')
         } catch (error) {
             console.error('Error updating user:', error)
+            toast.error('Something went wrong while updating')
         } finally {
             setIsSubmitting(false)
         }
@@ -92,7 +83,7 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
 
     return (
         <Dialog isOpen={dialogIsOpen} onClose={onDialogClose} closable>
-            <h3 className="mb-1">Update</h3>
+            <h3 className="mb-1">Update User</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
                 <FormItem
                     label="Full Name"
@@ -137,7 +128,6 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
                     variant="solid"
                     type="submit"
                     className="w-full"
-                    disabled={isLoading}
                 >
                     {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </Button>

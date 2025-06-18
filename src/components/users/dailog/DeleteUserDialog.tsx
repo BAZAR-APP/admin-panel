@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Dialog } from '@/components/ui'
 import { User } from '@/@types/auth'
+import AxiosBase from '@/services/axios/AxiosBase'
+import toast from 'react-hot-toast'
 
 type DeleteUserDialogProps = {
     dialogIsOpen: boolean
@@ -17,20 +19,14 @@ const DeleteUserDialog: React.FC<DeleteUserDialogProps> = ({
 }) => {
     const handleDelete = async () => {
         if (!user) return
-
         try {
-            // Example API call
-            await fetch(`/api/users/${user.userId}`, {
-                method: 'DELETE',
-            })
-
-            // Refresh users list
-            fetchUsers()
-
-            // Close the dialog
+            await AxiosBase.delete(`/users/${user?.id}`)
+            toast.success('User deleted successfully')
             onDialogClose()
+            fetchUsers()
         } catch (error) {
-            console.error('Failed to delete user:', error)
+            console.error('Delete failed:', error)
+            toast.error('Failed to delete user')
         }
     }
 
