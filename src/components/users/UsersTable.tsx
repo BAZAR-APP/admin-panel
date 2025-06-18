@@ -7,12 +7,12 @@ import { HiDotsHorizontal } from 'react-icons/hi'
 import { BiEditAlt, BiTrash } from 'react-icons/bi'
 import DeleteUserDialog from './dailog/DeleteUserDialog'
 import { Badge } from '../ui'
-import { User } from '../ui/@types/users'
 import useToggle from '@/utils/hooks/useToggle'
 import { DataTable } from '../shared'
 import Loading from '@/components/shared/Loading'
 import AxiosBase from '@/services/axios/AxiosBase'
 import EditUserDialog from './dailog/EditUserDialog'
+import { User } from '@/@types/auth'
 
 interface UsersTableProps {
     onUserUpdated: () => void
