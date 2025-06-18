@@ -143,7 +143,7 @@ const Chalets = ({
         }
     }
 
-    const renderField = (
+ const renderField = (
         name: keyof HomeFormSchema,
         label: string,
         type: string = 'text',
@@ -161,14 +161,13 @@ const Chalets = ({
                         <Input
                             {...field}
                             type={type}
-                            value={
-                                typeof field.value === 'boolean'
-                                    ? ''
-                                    : field.value === undefined ||
-                                        field.value === null
-                                      ? ''
-                                      : field.value
-                            }
+                            value={field.value as string | number}
+                            onChange={(e) => {
+                                const val = type === 'number' 
+                                    ? parseFloat(e.target.value) || 0
+                                    : e.target.value;
+                                field.onChange(val);
+                            }}
                         />
                     )}
                 />
