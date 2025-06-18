@@ -12,6 +12,7 @@ import useToggle from '@/utils/hooks/useToggle'
 import { DataTable } from '../shared'
 import Loading from '@/components/shared/Loading'
 import AxiosBase from '@/services/axios/AxiosBase'
+import EditUserDialog from './dailog/EditUserDialog'
 
 interface UsersTableProps {
     onUserUpdated: () => void
@@ -191,14 +192,12 @@ const UsersTable: React.FC<UsersTableProps> = ({ onUserUpdated }) => {
                 onDialogClose={toggleDeleteDialog}
             />
 
-            {/* 
             <EditUserDialog
                 dialogIsOpen={isEditOpen}
                 user={selectedUser}
                 fetchUsers={() => mutate('/users')}
                 onDialogClose={toggleEditDialog}
             />
-            */}
         </div>
     )
 }
