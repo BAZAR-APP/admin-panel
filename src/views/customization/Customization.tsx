@@ -5,31 +5,8 @@ import { Button, Badge } from '@/components/ui'
 import AxiosBase from '@/services/axios/AxiosBase'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
-
-export interface Customization {
-    id: string
-    title: string
-    titleInArabic: string
-    costUnit: string
-    costUnitInArabic: string
-    costPerNight: number
-    costPerNightInArabic: string
-    iconTitle: string
-    iconPhotoId: string
-    is24HourNotice: boolean
-    customizationCategoryId: string
-    customizationCategory: {
-        id: string
-        title: string
-    }
-    createdAt: string
-    updatedAt: string
-}
-
-const fetcher = async (url: string) => {
-    const res = await AxiosBase.get(url)
-    return res.data
-}
+import type { Customization } from '@/@types/auth'
+import { fetcher } from '@/services/fetcher'
 
 const getColumns = (
     onUpdate: (id: string) => void,
