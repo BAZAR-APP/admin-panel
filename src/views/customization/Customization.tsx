@@ -2,12 +2,10 @@ import React from 'react'
 import useSWR from 'swr'
 import { Container, AdaptiveCard, DataTable } from '@/components/shared'
 import { Button, Badge } from '@/components/ui'
-import AxiosBase from '@/services/axios/AxiosBase'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
 import type { Customization } from '@/@types/auth'
 import { fetcher } from '@/services/fetcher'
-
 const getColumns = (
     onUpdate: (id: string) => void,
 ): ColumnDef<Customization>[] => [
