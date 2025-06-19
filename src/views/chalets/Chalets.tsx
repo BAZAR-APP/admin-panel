@@ -83,7 +83,7 @@ const getColumns = (
                         <Dropdown.Item
                             onClick={() => onManageRooms(row.original.id)}
                         >
-                            <span>Mange Rooms</span>
+                            <span>Manage Rooms</span>
                         </Dropdown.Item>
                         {/* <Dropdown.Item
                             onClick={() => onChaletSubcription(row.original.id)}

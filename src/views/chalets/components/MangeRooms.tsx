@@ -56,7 +56,7 @@ const MangeRooms = () => {
         <Container>
             <AdaptiveCard>
                 <div className="flex items-center justify-between mb-4">
-                    <h3>Mange Rooms</h3>
+                    <h3>Manage Rooms</h3>
                     <Button
                         onClick={() =>
                             navigate(`/chalet/rooms/add/${chaletId}`)
