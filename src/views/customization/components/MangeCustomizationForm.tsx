@@ -9,6 +9,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
 import AxiosBase from '@/services/axios/AxiosBase'
+import { extractErrorMessage } from '@/utils/helpers'
 
 const customizationSchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -61,7 +62,7 @@ const ManageCustomizationForm = () => {
             toast.success('Customization created successfully')
             reset()
         } catch (err) {
-            toast.error('Something went wrong')
+            toast.error(extractErrorMessage(err))
         }
     }
 

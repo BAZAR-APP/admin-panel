@@ -192,12 +192,14 @@ const UsersTable: React.FC<UsersTableProps> = ({ onUserUpdated }) => {
                 onDialogClose={toggleDeleteDialog}
             />
 
-            <EditUserDialog
-                dialogIsOpen={isEditOpen}
-                user={selectedUser}
-                fetchUsers={() => mutate('/users')}
-                onDialogClose={toggleEditDialog}
-            />
+            {isEditOpen && (
+                <EditUserDialog
+                    dialogIsOpen={isEditOpen}
+                    user={selectedUser}
+                    fetchUsers={() => mutate('/users')}
+                    onDialogClose={toggleEditDialog}
+                />
+            )}
         </div>
     )
 }

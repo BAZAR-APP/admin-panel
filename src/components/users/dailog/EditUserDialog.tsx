@@ -9,6 +9,7 @@ import useSWR, { mutate } from 'swr'
 import type { User } from '@/@types/auth'
 import { fetcher } from '@/services/fetcher'
 import toast from 'react-hot-toast'
+import { extractErrorMessage } from '@/utils/helpers'
 
 type EditUserDialogProps = {
     dialogIsOpen: boolean
@@ -48,18 +49,14 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
         },
     })
 
-    const { data: userData } = useSWR(`/users/${user?.id}`, fetcher, {
-        revalidateOnFocus: false,
-    })
-
     useEffect(() => {
-        if (user || userData) {
+        if (user?.id) {
             reset({
-                fullName: userData?.fullName ?? user?.fullName ?? '',
-                email: userData?.email ?? user?.email ?? '',
+                fullName: user?.fullName || '',
+                email: user?.email || '',
             })
         }
-    }, [userData, user, reset])
+    }, [user])
 
     const onSubmit = async (values: EditUserSchema) => {
         try {
@@ -73,9 +70,9 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
             fetchUsers()
             onDialogClose()
             toast.success('User updated successfully')
+            reset()
         } catch (error) {
-            console.error('Error updating user:', error)
-            toast.error('Something went wrong while updating')
+            toast.error(extractErrorMessage(error))
         } finally {
             setIsSubmitting(false)
         }

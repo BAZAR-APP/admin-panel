@@ -3,6 +3,7 @@ import { Button, Dialog } from '@/components/ui'
 import { User } from '@/@types/auth'
 import AxiosBase from '@/services/axios/AxiosBase'
 import toast from 'react-hot-toast'
+import { extractErrorMessage } from '@/utils/helpers'
 
 type DeleteUserDialogProps = {
     dialogIsOpen: boolean
@@ -25,8 +26,7 @@ const DeleteUserDialog: React.FC<DeleteUserDialogProps> = ({
             onDialogClose()
             fetchUsers()
         } catch (error) {
-            console.error('Delete failed:', error)
-            toast.error('Failed to delete user')
+            toast.error(extractErrorMessage(error))
         }
     }
 

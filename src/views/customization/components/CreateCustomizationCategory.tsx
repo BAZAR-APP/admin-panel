@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { Form, FormItem } from '@/components/ui/form'
 import AxiosBase from '@/services/axios/AxiosBase'
 import { useNavigate } from 'react-router-dom'
+import { extractErrorMessage } from '@/utils/helpers'
 
 const categorySchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -44,7 +45,7 @@ const CreateCustomizationCategory = () => {
             reset()
             navigate('/customization')
         } catch (err) {
-            toast.error('Something went wrong')
+            toast.error(extractErrorMessage(err))
         } finally {
             setLoading(false)
         }
