@@ -2,34 +2,17 @@ import React from 'react'
 import useSWR from 'swr'
 import { useNavigate } from 'react-router-dom'
 import { Container, AdaptiveCard, DataTable } from '@/components/shared'
-import { Button, Badge } from '@/components/ui'
-import AxiosBase from '@/services/axios/AxiosBase'
+import { Button, Badge, Dropdown } from '@/components/ui'
 import type { ColumnDef } from '@tanstack/react-table'
+import { fetcher } from '@/services/fetcher'
+import { Chalet } from '@/@types/auth'
+import { HiDotsHorizontal } from 'react-icons/hi'
 
-export interface Chalet {
-    id: string
-    title: string
-    city: string
-    latitude: number
-    longitude: number
-    perHourCost: number
-    perNightCost: number
-    maxNoOfBeds: number
-    noOfBaths: number
-    noOfBedrooms: number
-    maxNoOfGuests: number
-    minNoOfGuests: number
-    isEntireHomeAvailabe: boolean
-    amenities: string[]
-    viewTypes: string[]
-}
-
-const fetcher = async (url: string) => {
-    const res = await AxiosBase.get(url)
-    return res.data
-}
-
-const getColumns = (onUpdate: (id: string) => void): ColumnDef<Chalet>[] => [
+const getColumns = (
+    onUpdate: (id: string) => void,
+    onManageRooms: (id: string) => void,
+    onChaletSubcription: (id: string) => void,
+): ColumnDef<Chalet>[] => [
     {
         header: 'TITLE',
         accessorKey: 'title',
@@ -86,12 +69,30 @@ const getColumns = (onUpdate: (id: string) => void): ColumnDef<Chalet>[] => [
         id: 'action',
         header: 'ACTION',
         cell: ({ row }) => (
-            <Button
-                className="bg-error-subtle"
-                onClick={() => onUpdate(row.original.id)}
-            >
-                Update
-            </Button>
+            <div>
+                <div className="flex items-center cursor-pointer">
+                    <Dropdown
+                        placement="bottom-end"
+                        renderTitle={<HiDotsHorizontal className="text-lg" />}
+                    >
+                        <Dropdown.Item
+                            onClick={() => onUpdate(row.original.id)}
+                        >
+                            <span>Edit Chalets</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={() => onManageRooms(row.original.id)}
+                        >
+                            <span>Mange Rooms</span>
+                        </Dropdown.Item>
+                        {/* <Dropdown.Item
+                            onClick={() => onChaletSubcription(row.original.id)}
+                        >
+                            <span>Chalet Subscription</span>
+                        </Dropdown.Item> */}
+                    </Dropdown>
+                </div>
+            </div>
         ),
     },
 ]
@@ -105,7 +106,12 @@ const Chalets = () => {
     const handleUpdate = (id: string) => {
         navigate(`/chalet/${id}`)
     }
-
+    const handleManageRooms = (id: string) => {
+        navigate(`/chalet/rooms/${id}`)
+    }
+    const handleSubcription = (id: string) => {
+        navigate(`/chalet/subcription/${id}`)
+    }
     return (
         <Container>
             <AdaptiveCard>
@@ -117,7 +123,11 @@ const Chalets = () => {
                 </div>
 
                 <DataTable<Chalet>
-                    columns={getColumns(handleUpdate)}
+                    columns={getColumns(
+                        handleUpdate,
+                        handleManageRooms,
+                        handleSubcription,
+                    )}
                     data={chalets}
                     loading={isLoading}
                     selectable={false}

@@ -92,3 +92,30 @@ export interface Customization {
     createdAt: string
     updatedAt: string
 }
+export interface Chalet {
+    id: string
+    title: string
+    city: string
+    latitude: number
+    longitude: number
+    perHourCost: number
+    perNightCost: number
+    maxNoOfBeds: number
+    noOfBaths: number
+    noOfBedrooms: number
+    maxNoOfGuests: number
+    minNoOfGuests: number
+    isEntireHomeAvailabe: boolean
+    amenities: string[]
+    viewTypes: string[]
+}
+export interface Room {
+    id: string
+    title: string
+    noOfKingBedrooms: string
+    noOfSingleBedrooms: string
+    noOfDoubleBedrooms: string
+    chaletId: string
+    createdAt: string
+    updatedAt: string
+}

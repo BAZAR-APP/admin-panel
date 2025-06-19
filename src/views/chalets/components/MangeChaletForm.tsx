@@ -156,7 +156,7 @@ const MangeChaletForm = ({}) => {
         label: string,
         type: string = 'text',
     ) => (
-        <div className="w-full lg:w-1/3 xl:w-1/6">
+        <div className="w-full">
             <FormItem
                 label={label}
                 invalid={!!errors[name]}
@@ -187,9 +187,11 @@ const MangeChaletForm = ({}) => {
     return (
         <Container>
             <AdaptiveCard>
-                <h3 className='mb-5'>{chaletId ? ' Update ' : 'Create '}Chalet</h3>
+                <h3 className="mb-5 px-5">
+                    {chaletId ? ' Update ' : 'Create '}Chalet
+                </h3>
                 <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <div className="flex items-center justify-around flex-wrap gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 px-5">
                         {renderField('title', 'Title | العنوان')}
                         {renderField('titleInArabic', 'Title in Arabic')}
                         {renderField('description', 'Description | الوصف')}
@@ -336,7 +338,7 @@ const MangeChaletForm = ({}) => {
                                 />
                             </FormItem>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 mt-5">
+                        <div className="flex flex-wrap gap-3 items-center lg:mt-6 xl:mt-11 2xl:mt-5">
                             <FormItem>
                                 <Controller
                                     name="isEntireHomeAvailabe"
@@ -395,14 +397,16 @@ const MangeChaletForm = ({}) => {
                             </FormItem>
                         </div>
                     </div>
-                    <Button
-                        block
-                        type="submit"
-                        loading={loading}
-                        disabled={!isValid || loading}
-                    >
-                        {loading ? 'Submitting...' : 'Submit'}
-                    </Button>
+                    <div className="px-5">
+                        <Button
+                            block
+                            type="submit"
+                            loading={loading}
+                            disabled={!isValid || loading}
+                        >
+                            {loading ? 'Submitting...' : 'Submit'}
+                        </Button>
+                    </div>
                 </Form>
             </AdaptiveCard>
         </Container>

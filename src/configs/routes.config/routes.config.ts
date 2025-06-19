@@ -34,14 +34,6 @@ export const protectedRoutes: Routes = [
         ),
         authority: [],
     },
-     {
-        key: 'createCustomizationCategory',
-        path: '/customization/create-category',
-        component: lazy(
-            () => import('@/views/customization/components/CreateCustomizationCategory'),
-        ),
-        authority: [],
-    },
     {
         key: 'chalets',
         path: '/chalets',
@@ -61,6 +53,38 @@ export const protectedRoutes: Routes = [
         path: '/chalet/:chaletId',
         component: lazy(
             () => import('@/views/chalets/components/MangeChaletForm'),
+        ),
+        authority: [],
+    },
+    {
+        key: 'mangeRooms',
+        path: '/chalet/rooms/:chaletId',
+        component: lazy(
+            () => import('@/views/chalets/components/MangeRooms'),
+        ),
+        authority: [],
+    },
+     {
+        key: 'addRooms',
+        path: '/chalet/rooms/add/:chaletId',
+        component: lazy(
+            () => import('@/views/chalets/components/AddChaletRooms'),
+        ),
+        authority: [],
+    },
+    {
+        key: 'chaletSubcription',
+        path: '/chalet/subcription/:chaletId',
+        component: lazy(
+            () => import('@/views/chalets/components/ChaletSubcription'),
+        ),
+        authority: [],
+    },
+     {
+        key: 'chaletSubcription',
+        path: '/chalet/subcription/add/:chaletId',
+        component: lazy(
+            () => import('@/views/chalets/components/ChaletSubscriptionForm'),
         ),
         authority: [],
     },

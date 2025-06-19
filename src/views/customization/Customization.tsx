@@ -6,6 +6,8 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
 import type { Customization } from '@/@types/auth'
 import { fetcher } from '@/services/fetcher'
+import useToggle from '@/utils/hooks/useToggle'
+import CustomizationCategoryDialog from './components/CustomizationCategoryDialog'
 const getColumns = (
     onUpdate: (id: string) => void,
 ): ColumnDef<Customization>[] => [
@@ -48,18 +50,18 @@ const getColumns = (
             />
         ),
     },
-    {
-        id: 'action',
-        header: 'ACTION',
-        cell: ({ row }) => (
-            <Button
-                className="bg-error-subtle"
-                onClick={() => onUpdate(row.original.id)}
-            >
-                Update
-            </Button>
-        ),
-    },
+    // {
+    //     id: 'action',
+    //     header: 'ACTION',
+    //     cell: ({ row }) => (
+    //         <Button
+    //             className="bg-error-subtle"
+    //             onClick={() => onUpdate(row.original.id)}
+    //         >
+    //             Edit
+    //         </Button>
+    //     ),
+    // },
 ]
 const Customization = () => {
     const { data: customizations = [], isLoading } = useSWR<Customization[]>(
@@ -67,21 +69,18 @@ const Customization = () => {
         fetcher,
     )
     const navigate = useNavigate()
+    const { isOpen, toggle } = useToggle(false)
     const handleUpdate = (id: string) => {
-        console.log('Update customization with ID:', id)
+        navigate(`/customization/${id}`)
     }
 
     return (
         <Container>
             <AdaptiveCard>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-6">
                     <h3>Customization</h3>
                     <div className="flex gap-3">
-                        <Button
-                            onClick={() =>
-                                navigate('/customization/create-category')
-                            }
-                        >
+                        <Button onClick={toggle}>
                             Create Customization Category
                         </Button>
                         <Button
@@ -97,6 +96,10 @@ const Customization = () => {
                     data={customizations}
                     loading={isLoading}
                     selectable={false}
+                />
+                <CustomizationCategoryDialog
+                    dialogIsOpen={isOpen}
+                    onDialogClose={toggle}
                 />
             </AdaptiveCard>
         </Container>

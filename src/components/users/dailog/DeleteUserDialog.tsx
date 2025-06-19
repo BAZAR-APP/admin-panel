@@ -42,16 +42,16 @@ const DeleteUserDialog: React.FC<DeleteUserDialogProps> = ({
                 Are you sure you want to delete{' '}
                 <span className="font-semibold">{user?.fullName}</span>?
             </p>
-            <div className="flex justify-center gap-4 mt-5">
+            <div className="flex justify-center md:flex-nowrap flex-wrap gap-3 mt-5">
                 <Button
                     onClick={onDialogClose}
-                    className="w-1/2 bg-error-subtle"
+                    className="w-full md:w-1/2"
                 >
                     Cancel
                 </Button>
                 <Button
                     onClick={handleDelete}
-                    className="w-1/2"
+                    className="w-full md:w-1/2"
                     variant="solid"
                 >
                     Confirm Delete

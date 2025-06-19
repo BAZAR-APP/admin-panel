@@ -3,13 +3,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
-import { Card } from '@/components/ui/Card'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Form, FormItem } from '@/components/ui/Form'
 import AxiosBase from '@/services/axios/AxiosBase'
-import { useNavigate } from 'react-router-dom'
 import { extractErrorMessage } from '@/utils/helpers'
+import { Dialog } from '@/components/ui'
 
 const categorySchema = z.object({
     title: z.string().min(1, 'Title is required'),
@@ -20,12 +19,17 @@ const defaultValues = {
     title: '',
     titleInArabic: '',
 }
-
+interface CreateCustomizationCategoryProps {
+    dialogIsOpen: boolean
+    onDialogClose: () => void
+}
 type CategoryFormSchema = z.infer<typeof categorySchema>
 
-const CreateCustomizationCategory = () => {
+const CustomizationCategoryDialog = ({
+    dialogIsOpen,
+    onDialogClose,
+}: CreateCustomizationCategoryProps) => {
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
     const {
         control,
         handleSubmit,
@@ -43,7 +47,7 @@ const CreateCustomizationCategory = () => {
             await AxiosBase.post('/customizationCategory', data)
             toast.success('Category created successfully')
             reset()
-            navigate('/customization')
+            onDialogClose()
         } catch (err) {
             toast.error(extractErrorMessage(err))
         } finally {
@@ -52,9 +56,9 @@ const CreateCustomizationCategory = () => {
     }
 
     return (
-        <Card>
-            <h3 className="mb-5">Customization Category</h3>
-            <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-6">
+        <Dialog isOpen={dialogIsOpen} onClose={onDialogClose}>
+            <h3 className="mb-1">Customization Category</h3>
+            <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6 pt-4">
                 <FormItem
                     label="Title | العنوان"
                     invalid={!!errors.title}
@@ -86,18 +90,16 @@ const CreateCustomizationCategory = () => {
                     />
                 </FormItem>
 
-                <div className="flex justify-end pt-6">
-                    <Button
-                        type="submit"
-                        disabled={!isValid || loading}
-                        className="w-full"
-                    >
-                        {loading ? 'Submitting...' : 'Submit'}
-                    </Button>
-                </div>
+                <Button
+                    type="submit"
+                    disabled={!isValid || loading}
+                    className="w-full"
+                >
+                    {loading ? 'Submitting...' : 'Submit'}
+                </Button>
             </Form>
-        </Card>
+        </Dialog>
     )
 }
 
-export default CreateCustomizationCategory
+export default CustomizationCategoryDialog

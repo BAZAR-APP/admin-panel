@@ -5,9 +5,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, type ZodType } from 'zod'
 import AxiosBase from '@/services/axios/AxiosBase'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 import type { User } from '@/@types/auth'
-import { fetcher } from '@/services/fetcher'
 import toast from 'react-hot-toast'
 import { extractErrorMessage } from '@/utils/helpers'
 
@@ -80,7 +79,7 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
 
     return (
         <Dialog isOpen={dialogIsOpen} onClose={onDialogClose} closable>
-            <h3 className="mb-1">Update User</h3>
+            <h3 className="mb-1">Update</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
                 <FormItem
                     label="Full Name"
