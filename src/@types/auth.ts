@@ -72,3 +72,23 @@ export type OauthSignInCallbackPayload = {
     onSignIn: (tokens: Token, user?: User) => void
     redirect: () => void
 }
+
+export interface Customization {
+    id: string
+    title: string
+    titleInArabic: string
+    costUnit: string
+    costUnitInArabic: string
+    costPerNight: number
+    costPerNightInArabic: string
+    iconTitle: string
+    iconPhotoId: string
+    is24HourNotice: boolean
+    customizationCategoryId: string
+    customizationCategory: {
+        id: string
+        title: string
+    }
+    createdAt: string
+    updatedAt: string
+}
