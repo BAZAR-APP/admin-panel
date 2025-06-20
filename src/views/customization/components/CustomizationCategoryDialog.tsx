@@ -60,7 +60,7 @@ const CustomizationCategoryDialog = ({
             <h3 className="mb-1">Customization Category</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6 pt-4">
                 <FormItem
-                    label="Title | العنوان"
+                    label="Title"
                     invalid={!!errors.title}
                     errorMessage={errors.title?.message}
                 >
@@ -70,14 +70,14 @@ const CustomizationCategoryDialog = ({
                         render={({ field }) => (
                             <Input
                                 {...field}
-                                placeholder="Enter category title"
+                                placeholder="Enter title"
                             />
                         )}
                     />
                 </FormItem>
 
                 <FormItem
-                    label="Title in Arabic | العنوان بالعربية"
+                    label="العنوان"
                     invalid={!!errors.titleInArabic}
                     errorMessage={errors.titleInArabic?.message}
                 >
@@ -85,7 +85,7 @@ const CustomizationCategoryDialog = ({
                         name="titleInArabic"
                         control={control}
                         render={({ field }) => (
-                            <Input {...field} placeholder="أدخل عنوان الفئة" />
+                            <Input {...field} placeholder="أدخل عنوان " />
                         )}
                     />
                 </FormItem>

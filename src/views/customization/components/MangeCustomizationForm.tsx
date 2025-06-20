@@ -108,22 +108,22 @@ const ManageCustomizationForm = () => {
 
     return (
         <Card>
-            <h3 className="mb-5 px-5">
+            <h3 className="mb-5 px-5 text-primary">
                 {customizationId ? 'Update' : 'Create'} Customization
             </h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 px-5">
                     {renderField(
                         'title',
-                        'Title | العنوان',
+                        'Title',
                         'text',
-                        'Enter customization title',
+                        'Enter title',
                     )}
                     {renderField(
                         'titleInArabic',
-                        'Title in Arabic',
+                        'العنوان',
                         'text',
-                        'أدخل العنوان بالعربية',
+                        'أدخل العنوان ',
                     )}
                     <CategoryDropdown
                         control={control}
@@ -139,25 +139,25 @@ const ManageCustomizationForm = () => {
 
                     {renderField(
                         'costUnit',
-                        'Cost Unit | وحدة التكلفة',
+                        'Cost Unit',
                         'text',
                         'e.g., per item, per hour',
                     )}
                     {renderField(
                         'costUnitInArabic',
-                        'Cost Unit in Arabic',
+                        'وحدة التكلفة',
                         'text',
                         'مثال: لكل قطعة، في الساعة',
                     )}
                     {renderField(
                         'costPerNight',
-                        'Cost Per Night | التكلفة لكل ليلة',
+                        'Cost Per Night',
                         'number',
                         '0',
                     )}
                     {renderField(
                         'costPerNightInArabic',
-                        'Cost Per Night in Arabic',
+                        'التكلفة لكل ليلة',
                         'text',
                         'التكلفة بالعربية',
                     )}

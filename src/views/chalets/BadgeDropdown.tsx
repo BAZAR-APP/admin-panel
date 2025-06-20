@@ -39,7 +39,7 @@ const BadgeDropdown: React.FC<BadgeDropdownProps> = ({ control, errors }) => {
     }, [data])
 
     return (
-        <FormItem label="Badge | الشارة" invalid={Boolean(errors?.badgeId)}>
+        <FormItem label="Select Badge" invalid={Boolean(errors?.badgeId)}>
             <Controller
                 name="badgeId"
                 control={control}

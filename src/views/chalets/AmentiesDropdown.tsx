@@ -29,7 +29,7 @@ const AmenitiesDropdown: React.FC<AmenitiesDropdownProps> = ({
 
     return (
         <FormItem
-            label="Amenities | وسائل الراحة"
+            label="Select Amenities"
             invalid={Boolean(errors?.amenities)}
         >
             <Controller

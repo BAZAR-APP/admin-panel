@@ -4,10 +4,10 @@ import { Container, AdaptiveCard, DataTable } from '@/components/shared'
 import { Button, Badge } from '@/components/ui'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useNavigate } from 'react-router-dom'
-import type { Customization } from '@/@types/auth'
 import { fetcher } from '@/services/fetcher'
 import useToggle from '@/utils/hooks/useToggle'
 import CustomizationCategoryDialog from './components/CustomizationCategoryDialog'
+import type { Customization } from '@/@types/modules'
 const getColumns = (
     onUpdate: (id: string) => void,
 ): ColumnDef<Customization>[] => [
@@ -78,7 +78,7 @@ const Customization = () => {
         <Container>
             <AdaptiveCard>
                 <div className="flex items-center justify-between mb-6">
-                    <h3>Customization</h3>
+                    <h3 className="text-primary">Customization</h3>
                     <div className="flex gap-3">
                         <Button onClick={toggle}>
                             Create Customization Category

@@ -123,36 +123,105 @@ const ChaletSubscriptionForm = () => {
 
     return (
         <Card>
-            <h3 className="mb-5 px-5">Add Subscription</h3>
+            <h3 className="mb-5 px-5 text-primary">Add Subscription</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-5">
-                    {renderField('title', 'Title | العنوان')}
-                    {renderField('titleInArabic', 'Title in Arabic')}
-                    {renderField('durationUnit', 'Duration Unit')}
+                    {renderField('title', 'Title', 'text', 'Enter title')}
+                    {renderField(
+                        'titleInArabic',
+                        'العنوان',
+                        'text',
+                        'أدخل العنوان',
+                    )}
+
+                    {renderField(
+                        'durationUnit',
+                        'Duration Unit',
+                        'text',
+                        'Enter duration unit',
+                    )}
                     {renderField(
                         'durationUnitInArabic',
-                        'Duration Unit Arabic',
+                        'وحدة المدة',
+                        'text',
+                        'أدخل وحدة المدة',
                     )}
-                    {renderField('durationValue', 'Duration Value')}
+
+                    {renderField(
+                        'durationValue',
+                        'Duration Value',
+                        'text',
+                        'Enter duration value',
+                    )}
                     {renderField(
                         'durationVallueInArabic',
-                        'Duration Value Arabic',
+                        'قيمة المدة',
+                        'text',
+                        'أدخل قيمة المدة',
                     )}
-                    {renderField('type', 'Type')}
-                    {renderField('typeInArabic', 'Type Arabic')}
-                    {renderField('price', 'Price')}
-                    {renderField('priceInArabic', 'Price Arabic')}
-                    {renderField('priceUnit', 'Price Unit')}
-                    {renderField('priceUnitInArabic', 'Price Unit Arabic')}
-                    {renderField('minimumTime', 'Minimum Time')}
-                    {renderField('minimumTimeInArabic', 'Minimum Time Arabic')}
-                    {renderField('minimumTimeUnit', 'Minimum Time Unit')}
+
+                    {renderField('type', 'Type', 'text', 'Enter type')}
+                    {renderField('typeInArabic', 'النوع', 'text', 'أدخل النوع')}
+
+                    {renderField('price', 'Price', 'text', 'Enter price')}
+                    {renderField(
+                        'priceInArabic',
+                        'السعر',
+                        'text',
+                        'أدخل السعر',
+                    )}
+
+                    {renderField(
+                        'priceUnit',
+                        'Price Unit',
+                        'text',
+                        'Enter price unit',
+                    )}
+                    {renderField(
+                        'priceUnitInArabic',
+                        'وحدة السعر',
+                        'text',
+                        'أدخل وحدة السعر',
+                    )}
+
+                    {renderField(
+                        'minimumTime',
+                        'Minimum Time',
+                        'text',
+                        'Enter minimum time',
+                    )}
+                    {renderField(
+                        'minimumTimeInArabic',
+                        'الحد الأدنى للوقت',
+                        'text',
+                        'أدخل الحد الأدنى للوقت',
+                    )}
+
+                    {renderField(
+                        'minimumTimeUnit',
+                        'Minimum Time Unit',
+                        'text',
+                        'Enter minimum time unit',
+                    )}
                     {renderField(
                         'minimumTimeUnitInArabic',
-                        'Minimum Time Unit Arabic',
+                        'وحدة الحد الأدنى للوقت',
+                        'text',
+                        'أدخل وحدة الوقت',
                     )}
-                    {renderField('specialTags', 'Special Tags')}
-                    {renderField('specialTagsInArabic', 'Special Tags Arabic')}
+
+                    {renderField(
+                        'specialTags',
+                        'Special Tags',
+                        'text',
+                        'Enter special tags',
+                    )}
+                    {renderField(
+                        'specialTagsInArabic',
+                        'العلامات المميزة',
+                        'text',
+                        'أدخل العلامات المميزة',
+                    )}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-5 px-5">

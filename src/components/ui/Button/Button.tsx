@@ -145,11 +145,11 @@ const Button = (props: ButtonProps) => {
         const btn = {
             bgColor: active
                 ? `bg-gray-100 border border-gray-300 dark:bg-gray-500 dark:border-gray-500`
-                : `bg-white border border-gray-300 dark:bg-gray-700 dark:border-gray-700`,
-            textColor: `text-gray-600 dark:text-gray-100`,
+                : `bg-white border border-primary dark:bg-gray-700 dark:border-gray-700`,
+            textColor: `text-primary dark:text-gray-100`,
             hoverColor: active
                 ? ''
-                : `ring-primary dark:ring-white hover:border-primary dark:hover:border-white hover:text-primary dark:hover:text-white dark:hover:bg-transparent`,
+                : `ring-primary dark:ring-white hover:border-primary hover:bg-primary dark:hover:border-white hover:text-white dark:hover:text-white dark:hover:bg-transparent`,
             activeColor: ``,
         }
         return getBtnColor(btn)

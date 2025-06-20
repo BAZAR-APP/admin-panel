@@ -23,7 +23,6 @@ const DeleteUserDialog: React.FC<DeleteUserDialogProps> = ({
         try {
             await AxiosBase.delete(`/users/${user?.id}`)
             toast.success('User deleted successfully')
-            onDialogClose()
             fetchUsers()
         } catch (error) {
             toast.error(extractErrorMessage(error))

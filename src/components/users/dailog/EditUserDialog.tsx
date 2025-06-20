@@ -38,7 +38,7 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
         reset,
     } = useForm<EditUserSchema>({
         resolver: zodResolver(validationSchema),
@@ -79,8 +79,8 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
 
     return (
         <Dialog isOpen={dialogIsOpen} onClose={onDialogClose} closable>
-            <h3 className="mb-1">Update</h3>
-            <Form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
+            <h3 className="mb-3.5">Update</h3>
+            <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <FormItem
                     label="Full Name"
                     invalid={!!errors.fullName}
@@ -121,9 +121,9 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
 
                 <Button
                     loading={isSubmitting}
-                    variant="solid"
                     type="submit"
                     className="w-full"
+                    disabled={!isValid || isSubmitting}
                 >
                     {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </Button>

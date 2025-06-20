@@ -113,7 +113,7 @@ const ChaletSubscription = () => {
         <Container>
             <AdaptiveCard>
                 <div className="flex items-center justify-between mb-4">
-                    <h3>Chalet Subscriptions</h3>
+                    <h3 className='text-primary'>Chalet Subscriptions</h3>
                     <Button
                         onClick={() =>
                             navigate(`/chalet/subcription/add/${chaletId}`)

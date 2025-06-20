@@ -34,7 +34,7 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
 
     return (
         <FormItem
-            label="Customization Categories | فئات التخصيص"
+            label="Customization Categories"
             invalid={Boolean(errors?.[name])}
         >
             <Controller
@@ -48,7 +48,7 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
                         placeholder={
                             isLoading
                                 ? 'Loading categories...'
-                                : 'Select customization category'
+                                : 'Select category'
                         }
                         value={options.find(
                             (opt: { label: string; value: any }) =>

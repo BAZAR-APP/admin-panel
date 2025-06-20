@@ -37,6 +37,16 @@ const navigationConfig: NavigationTree[] = [
         authority: [],
         subMenu: [],
     },
+     {
+        key: 'tiers',
+        path: '/tiers',
+        title: 'Tiers Benefits',
+        translateKey: 'nav.tiers',
+        icon: 'tiers',
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: [],
+    },
     {
         key: 'viewTypes',
         path: '/viewTypes',

@@ -52,7 +52,7 @@ const MobileNav = ({
             <Drawer
                 title="Navigation"
                 isOpen={isOpen}
-                bodyClass={classNames('p-0')}
+                bodyClass={classNames('pt-5 px-0')}
                 width={330}
                 placement={direction === DIR_RTL ? 'right' : 'left'}
                 onClose={handleDrawerClose}

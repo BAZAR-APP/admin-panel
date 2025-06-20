@@ -81,8 +81,11 @@ const CreateItemForm = ({
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <h3 className="mb-3.5">
+                {isBadgeType ? 'Add Badge' : 'Add Amenity'}
+            </h3>
             <FormItem
-                label="Name"
+                label="Title"
                 invalid={!!errors.name}
                 errorMessage={errors.name?.message}
             >
@@ -92,15 +95,14 @@ const CreateItemForm = ({
                     render={({ field }) => (
                         <Input
                             {...field}
-                            placeholder="Enter name"
-                            className="border-primary"
+                            placeholder="Enter title"
                         />
                     )}
                 />
             </FormItem>
 
             <FormItem
-                label="Name in Arabic"
+                label="العنوان"
                 invalid={!!errors.nameInArabic}
                 errorMessage={errors.nameInArabic?.message}
             >
@@ -110,8 +112,7 @@ const CreateItemForm = ({
                     render={({ field }) => (
                         <Input
                             {...field}
-                            placeholder="Enter name in Arabic"
-                            className="border-primary"
+                            placeholder="أدخل العنوان"
                         />
                     )}
                 />
@@ -131,14 +132,13 @@ const CreateItemForm = ({
                                 <Input
                                     {...field}
                                     placeholder="Enter description"
-                                    className="border-primary"
                                 />
                             )}
                         />
                     </FormItem>
 
                     <FormItem
-                        label="Description in Arabic"
+                        label="الوصف"
                         invalid={!!errors.descriptionInArabic}
                         errorMessage={errors.descriptionInArabic?.message}
                     >
@@ -148,8 +148,7 @@ const CreateItemForm = ({
                             render={({ field }) => (
                                 <Input
                                     {...field}
-                                    placeholder="Enter description in Arabic"
-                                    className="border-primary"
+                                    placeholder="أدخل الوصف"
                                 />
                             )}
                         />

@@ -72,6 +72,7 @@ const AddChaletRooms = () => {
         name: keyof RoomFormSchema,
         label: string,
         type: string = 'text',
+        placeholder?: string,
     ) => (
         <div className="w-full">
             <FormItem
@@ -86,6 +87,7 @@ const AddChaletRooms = () => {
                         <Input
                             {...field}
                             type={type}
+                            placeholder={placeholder}
                             value={field.value as string | number}
                             onChange={(e) => {
                                 const val =
@@ -104,40 +106,59 @@ const AddChaletRooms = () => {
     return (
         <Container>
             <AdaptiveCard>
-                <h3 className="mb-6 px-5">Add Rooms</h3>
+                <h3 className="mb-6 px-5 text-primary">Add Rooms</h3>
                 <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5">
-                        {renderField('title', 'Room Title | عنوان الغرفة')}
                         {renderField(
-                            'titleInArabic',
-                            'Room Title in Arabic',
+                            'title',
+                            'Room Title',
+                            'text',
+                            'Enter room title',
                         )}
                         {renderField(
+                            'titleInArabic',
+                            'عنوان الغرفة',
+                            'text',
+                            'أدخل عنوان الغرفة',
+                        )}
+
+                        {renderField(
                             'noOfKingBedrooms',
-                            'King Bedrooms | غرف نوم كينج',
+                            'King Bedrooms',
                             'number',
+                            '0',
                         )}
                         {renderField(
                             'noOfKingBedroomsInArabic',
-                            'King Bedrooms in Arabic',
+                            'غرف نوم كينج',
+                            'text',
+                            'أدخل عدد غرف كينج',
                         )}
+
                         {renderField(
                             'noOfSingleBedrooms',
-                            'Single Bedrooms | غرف نوم فردية',
+                            'Single Bedrooms',
                             'number',
+                            '0',
                         )}
                         {renderField(
                             'noOfSingleBedroomsInArabic',
-                            'Single Bedrooms in Arabic',
+                            'غرف نوم فردية',
+                            'text',
+                            'أدخل عدد غرف فردية',
                         )}
+
                         {renderField(
                             'noOfDoubleBedrooms',
-                            'Double Bedrooms | غرف نوم مزدوجة',
+                            'Double Bedrooms',
                             'number',
+                            '0',
                         )}
                         {renderField(
                             'noOfDoubleBedroomsInArabic',
-                            'Double Bedrooms in Arabic',
+                            'غرف نوم مزدوجة',
+                            'text',
+                            'أدخل عدد غرف مزدوجة',
                         )}
                     </div>
                     <div className="px-5">

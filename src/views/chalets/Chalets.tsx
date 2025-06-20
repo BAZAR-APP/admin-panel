@@ -5,8 +5,8 @@ import { Container, AdaptiveCard, DataTable } from '@/components/shared'
 import { Button, Badge, Dropdown } from '@/components/ui'
 import type { ColumnDef } from '@tanstack/react-table'
 import { fetcher } from '@/services/fetcher'
-import { Chalet } from '@/@types/auth'
 import { HiDotsHorizontal } from 'react-icons/hi'
+import { Chalet } from '@/@types/modules'
 
 const getColumns = (
     onUpdate: (id: string) => void,
@@ -85,11 +85,11 @@ const getColumns = (
                         >
                             <span>Manage Rooms</span>
                         </Dropdown.Item>
-                        {/* <Dropdown.Item
+                        <Dropdown.Item
                             onClick={() => onChaletSubcription(row.original.id)}
                         >
                             <span>Chalet Subscription</span>
-                        </Dropdown.Item> */}
+                        </Dropdown.Item>
                     </Dropdown>
                 </div>
             </div>
@@ -116,7 +116,7 @@ const Chalets = () => {
         <Container>
             <AdaptiveCard>
                 <div className="flex items-center justify-between mb-4">
-                    <h3>Chalets</h3>
+                    <h3 className='text-primary'>Chalets</h3>
                     <Button onClick={() => navigate('/chalet/create')}>
                         Create Chalet
                     </Button>

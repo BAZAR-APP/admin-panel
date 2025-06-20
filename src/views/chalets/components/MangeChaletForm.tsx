@@ -131,7 +131,7 @@ const MangeChaletForm = ({}) => {
         defaultValues,
         mode: 'onChange',
     })
-    useSWR(`/chalets/readById/${chaletId}`, fetcher, {
+    useSWR(chaletId ? `/chalets/readById/${chaletId}` : null, fetcher, {
         onSuccess: (data) => {
             reset(data)
         },
@@ -155,6 +155,7 @@ const MangeChaletForm = ({}) => {
         name: keyof HomeFormSchema,
         label: string,
         type: string = 'text',
+        placeholder?: string,
     ) => (
         <div className="w-full">
             <FormItem
@@ -169,6 +170,7 @@ const MangeChaletForm = ({}) => {
                         <Input
                             {...field}
                             type={type}
+                            placeholder={placeholder}
                             value={field.value as string | number}
                             onChange={(e) => {
                                 const val =
@@ -187,129 +189,204 @@ const MangeChaletForm = ({}) => {
     return (
         <Container>
             <AdaptiveCard>
-                <h3 className="mb-5 px-5">
+                <h3 className="mb-5 px-5 text-primary">
                     {chaletId ? ' Update ' : 'Create '}Chalet
                 </h3>
                 <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 px-5">
-                        {renderField('title', 'Title | العنوان')}
-                        {renderField('titleInArabic', 'Title in Arabic')}
-                        {renderField('description', 'Description | الوصف')}
+                        {renderField('title', 'Title', 'text', 'Enter title')}
+                        {renderField(
+                            'titleInArabic',
+                            'العنوان',
+                            'text',
+                            'أدخل العنوان',
+                        )}
+                        {renderField(
+                            'description',
+                            'Description',
+                            'text',
+                            'Enter discription',
+                        )}
                         {renderField(
                             'descriptionInArabic',
-                            'Description in Arabic',
+                            'الوصف',
+                            'text',
+                            'أدخل الوصف',
                         )}
 
                         {renderField(
                             'noOfBedrooms',
-                            'No. of Bedrooms | غرف النوم',
+                            'No. of Bedrooms',
                             'number',
                         )}
                         {renderField(
                             'noOfBedroomsInArabic',
-                            'No. of Bedrooms in Arabic',
+                            'عدد غرف النوم',
+                            'text',
+                            'صفر',
                         )}
                         {renderField(
                             'maxNoOfBeds',
-                            'Max No. of Beds | عدد الأسرة',
+                            'Max No. of Beds',
                             'number',
                         )}
                         {renderField(
                             'maxNoOfBedsInArabic',
-                            'Max No. of Beds in Arabic',
+                            'الحد الأقصى لعدد الأسرة',
+                            'text',
+                            'صفر',
                         )}
-                        {renderField(
-                            'noOfBaths',
-                            'No. of Baths | الحمامات',
-                            'number',
-                        )}
+                        {renderField('noOfBaths', 'No. of Baths', 'number')}
                         {renderField(
                             'noOfBathsInArabic',
-                            'No. of Baths in Arabic',
+                            'عدد الحمامات',
+                            'text',
+                            'صفر',
                         )}
                         {renderField(
                             'maxNoOfGuests',
-                            'Max No. of Guests | الحد الأقصى للضيوف',
+                            'Max No. of Guests',
                             'number',
-                        )}
-                        {renderField(
-                            'minNoOfGuests',
-                            'Min No. of Guests | الحد الأدنى للضيوف',
-                            'number',
-                        )}
-                        {renderField(
-                            'maxNoOfGuestsInArabic',
-                            'Max No. of Guests in Arabic',
-                        )}
-                        {renderField(
-                            'minNoOfGuestsInArabic',
-                            'Min No. of Guests in Arabic',
                         )}
 
                         {renderField(
-                            'perHourCost',
-                            'Per Hour Cost | تكلفة الساعة',
+                            'maxNoOfGuestsInArabic',
+                            'الحد الأقصى لعدد الضيوف',
+                            'text',
+                            'صفر',
+                        )}
+                        {renderField(
+                            'minNoOfGuests',
+                            'Min No. of Guests',
                             'number',
                         )}
+                        {renderField(
+                            'minNoOfGuestsInArabic',
+                            'الحد الأدنى لعدد الضيوف',
+                            'text',
+                            'صفر',
+                        )}
+
+                        {renderField('perHourCost', 'Per Hour Cost', 'number')}
                         {renderField(
                             'perNightCost',
-                            'Per Night Cost | تكلفة الليلة',
+                            'التكلفة لكل ساعة',
                             'number',
                         )}
-                        {renderField(
-                            'weekendCost',
-                            'Weekend Cost | تكلفة نهاية الأسبوع',
-                            'number',
-                        )}
+                        {renderField('weekendCost', 'Weekend Cost', 'number')}
                         {renderField(
                             'weekDaysCost',
-                            'Week Days Cost | تكلفة أيام الأسبوع',
+                            'Week Days Cost',
                             'number',
                         )}
                         {renderField(
                             'fullWeekCost',
-                            'Full Week Cost | تكلفة الأسبوع الكامل',
+                            'Full Week Cost',
                             'number',
                         )}
                         {renderField(
                             'fullMonthCost',
-                            'Full Month Cost | تكلفة الشهر الكامل',
+                            'Full Month Cost',
                             'number',
                         )}
 
-                        {renderField('photoId', 'Photo ID')}
-                        {renderField('hostName', 'Host Name')}
-                        {renderField('hostPhotoId', 'Host Photo ID')}
+                        {renderField(
+                            'photoId',
+                            'Photo ID',
+                            'text',
+                            'Enter photo id',
+                        )}
+                        {renderField(
+                            'hostName',
+                            'Host Name',
+                            'text',
+                            'Enter name',
+                        )}
+                        {renderField(
+                            'hostPhotoId',
+                            'Host Photo ID',
+                            'text',
+                            'Enter id',
+                        )}
 
                         {renderField(
                             'pinTitle',
-                            'Pin Title | العنوان على الخريطة',
+                            'Pin Title',
+                            'text',
+                            'Enter pin title',
                         )}
-                        {renderField('pinTitleInArabic', 'Pin Title in Arabic')}
-                        {renderField('street1', 'Street 1 | الشارع 1')}
-                        {renderField('street1InArabic', 'Street 1 in Arabic')}
-                        {renderField('street2', 'Street 2 | الشارع 2')}
-                        {renderField('street2InArabic', 'Street 2 in Arabic')}
-                        {renderField('city', 'City | المدينة')}
-                        {renderField('cityInArabic', 'City in Arabic')}
-                        {renderField('state', 'State | الولاية')}
-                        {renderField('stateInArabic', 'State in Arabic')}
-                        {renderField('country', 'Country | البلد')}
-                        {renderField('countryInArabic', 'Country in Arabic')}
+                        {renderField(
+                            'pinTitleInArabic',
+                            'عنوان التثبيت',
+                            'text',
+                            'أدخل عنوان التثبيت',
+                        )}
+                        {renderField(
+                            'street1',
+                            'Street 1',
+                            'text',
+                            'Enter street',
+                        )}
+                        {renderField(
+                            'street1InArabic',
+                            'الشارع 1',
+                            'text',
+                            'أدخل اسم الشارع',
+                        )}
+                        {renderField(
+                            'street2',
+                            'Street 2',
+                            'text',
+                            'Enter street',
+                        )}
+                        {renderField(
+                            'street2InArabic',
+                            'الشارع 2',
+                            'text',
+                            'أدخل اسم الشارع',
+                        )}
+                        {renderField('city', 'City', 'text', 'Enter city')}
+                        {renderField(
+                            'cityInArabic',
+                            'المدينة',
+                            'text',
+                            'أدخل المدينة',
+                        )}
+                        {renderField('state', 'State', 'text', 'Enter state')}
+                        {renderField(
+                            'stateInArabic',
+                            'الولاية',
+                            'text',
+                            'أدخل الولاية',
+                        )}
+                        {renderField(
+                            'country',
+                            'Country',
+                            'text',
+                            'Enter country',
+                        )}
+                        {renderField(
+                            'countryInArabic',
+                            'الدولة',
+                            'text',
+                            'أدخل الدولة',
+                        )}
                         {renderField(
                             'postalCode',
-                            'Postal Code | الرمز البريدي',
+                            'Postal Code',
+                            'text',
+                            'Enter postal code'
                         )}
                         <AmenitiesDropdown control={control} errors={errors} />
                         <BadgeDropdown control={control} errors={errors} />
                         {renderField(
                             'latitude',
-                            'Latitude | خط العرض',
+                            'Latitude',
                             'number',
                         )}
                         {renderField(
                             'longitude',
-                            'Longitude | خط الطول',
+                            'Longitude',
                             'number',
                         )}
                     </div>
