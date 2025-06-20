@@ -123,7 +123,7 @@ const ChaletSubscriptionForm = () => {
 
     return (
         <Card>
-            <h3 className="mb-5 px-5">Add Subscription</h3>
+            <h3 className="mb-5 px-5 text-primary">Add Subscription</h3>
             <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-5">
                     {renderField('title', 'Title', 'text', 'Enter title')}
