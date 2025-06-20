@@ -22,7 +22,10 @@ export const protectedRoutes: Routes = [
         key: 'createCustomization',
         path: '/customization/create',
         component: lazy(
-            () => import('@/views/customization/components/MangeCustomizationForm'),
+            () =>
+                import(
+                    '@/views/customization/components/MangeCustomizationForm'
+                ),
         ),
         authority: [],
     },
@@ -30,7 +33,10 @@ export const protectedRoutes: Routes = [
         key: 'updateCustomization',
         path: '/customization/:customizationId',
         component: lazy(
-            () => import('@/views/customization/components/MangeCustomizationForm'),
+            () =>
+                import(
+                    '@/views/customization/components/MangeCustomizationForm'
+                ),
         ),
         authority: [],
     },
@@ -38,6 +44,18 @@ export const protectedRoutes: Routes = [
         key: 'chalets',
         path: '/chalets',
         component: lazy(() => import('@/views/chalets/Chalets')),
+        authority: [],
+    },
+    {
+        key: 'tiers',
+        path: '/tiers',
+        component: lazy(() => import('@/views/tiers/TiersBenefits')),
+        authority: [],
+    },
+    {
+        key: 'tiers',
+        path: '/tiers/create',
+        component: lazy(() => import('@/views/tiers/components/TiersBenefitsForm')),
         authority: [],
     },
     {
@@ -59,12 +77,10 @@ export const protectedRoutes: Routes = [
     {
         key: 'mangeRooms',
         path: '/chalet/rooms/:chaletId',
-        component: lazy(
-            () => import('@/views/chalets/components/MangeRooms'),
-        ),
+        component: lazy(() => import('@/views/chalets/components/MangeRooms')),
         authority: [],
     },
-     {
+    {
         key: 'addRooms',
         path: '/chalet/rooms/add/:chaletId',
         component: lazy(
@@ -80,7 +96,7 @@ export const protectedRoutes: Routes = [
         ),
         authority: [],
     },
-     {
+    {
         key: 'chaletSubcription',
         path: '/chalet/subcription/add/:chaletId',
         component: lazy(

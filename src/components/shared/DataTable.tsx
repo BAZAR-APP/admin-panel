@@ -282,6 +282,7 @@ function DataTable<T>(props: DataTableProps<T>) {
                                     <Th
                                         key={header.id}
                                         colSpan={header.colSpan}
+                                        className='text-primary'
                                     >
                                         {header.isPlaceholder ? null : (
                                             <div

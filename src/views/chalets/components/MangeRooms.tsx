@@ -5,7 +5,7 @@ import { Container, AdaptiveCard, DataTable } from '@/components/shared'
 import { Button } from '@/components/ui'
 import type { ColumnDef } from '@tanstack/react-table'
 import { fetcher } from '@/services/fetcher'
-import { Room } from '@/@types/auth'
+import { Room } from '@/@types/modules'
 
 const getColumns = (): ColumnDef<Room>[] => [
     {
@@ -56,7 +56,7 @@ const MangeRooms = () => {
         <Container>
             <AdaptiveCard>
                 <div className="flex items-center justify-between mb-4">
-                    <h3>Manage Rooms</h3>
+                    <h3 className='text-primary'>Manage Rooms</h3>
                     <Button
                         onClick={() =>
                             navigate(`/chalet/rooms/add/${chaletId}`)
